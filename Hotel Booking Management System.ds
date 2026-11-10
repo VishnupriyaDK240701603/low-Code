@@ -20,9 +20,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 			displayname = "Room Booking Form"
 			success message = "Room booking request submitted successfully! Confirmation email and QR code sent."
 
-			// ================================================================
-			// SECTION A: GUEST DETAILS (Basic Fields)
-			// ================================================================
+		
 			Section_A
 			(
 				type = section
@@ -82,9 +80,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 				width = medium
 			)
 
-			// ================================================================
-			// SECTION B: CONTACT DETAILS (Basic Fields)
-			// ================================================================
+			
 			Section_B
 			(
 				type = section
@@ -156,9 +152,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 				personal data = true
 			)
 
-			// ================================================================
-			// SECTION C: ROOM & STAY PREFERENCES (Basic Fields)
-			// ================================================================
+			
 			Section_C
 			(
 				type = section
@@ -208,9 +202,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 				width = medium
 			)
 
-			// ================================================================
-			// SECTION D: SCHEDULING & POLICY ACKNOWLEDGEMENT (Basic Fields)
-			// ================================================================
+		
 			Section_D
 			(
 				type = section
@@ -248,9 +240,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 				width = medium
 			)
 
-			// ================================================================
-			// SECTION E: ROOM VERIFICATION & IDENTITY (Advanced Fields)
-			// ================================================================
+			
 			Section_E
 			(
 				type = section
@@ -303,9 +293,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 				width = medium
 			)
 
-			// ================================================================
-			// SECTION F: GROUP BOOKING & MEDIA DETAILS (Advanced Fields)
-			// ================================================================
+			
 			Section_F
 			(
 				type = section
@@ -369,9 +357,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 				width = medium
 			)
 
-			// ================================================================
-			// SECTION G: PAYMENT & PICKUP PREFERENCE (Advanced Fields)
-			// ================================================================
+			
 			Section_G
 			(
 				type = section
@@ -421,9 +407,7 @@ application "Hotel_Room_Booking_Management_Advanced"
     			)
 			)
 
-			// ================================================================
-			// SECTION H: DECLARATION & SYSTEM VALUES (Advanced Fields)
-			// ================================================================
+		
 			Section_H
 			(
 				type = section
@@ -516,9 +500,6 @@ application "Hotel_Room_Booking_Management_Advanced"
 		}
 	}
 
-	// ========================================================================
-	// REPORTS SUITE (9 Purpose-Built Report Types with full quickviews & detailviews)
-	// ========================================================================
 	reports
 	{
 		default list Room_Booking_Report
@@ -683,9 +664,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 		}
 	}
 
-	// ========================================================================
-	// PAGES (Hotel Command Center Dashboard & ZML Elements)
-	// ========================================================================
+
 	pages
 	{
 		page Hotel_Command_Center_Page
@@ -695,9 +674,7 @@ application "Hotel_Room_Booking_Management_Advanced"
 		}
 	}
 
-	// ========================================================================
-	// FUNCTIONS (Deluge Custom Functions)
-	// ========================================================================
+
 	functions
 	{
 		Deluge
@@ -733,9 +710,6 @@ application "Hotel_Room_Booking_Management_Advanced"
 		}
 	}
 
-	// ========================================================================
-	// WORKFLOWS, SCHEDULES, APPROVALS, BLUEPRINTS & BATCH WORKFLOWS
-	// ========================================================================
 	workflow
 	{
 		form
@@ -884,10 +858,6 @@ application "Hotel_Room_Booking_Management_Advanced"
 			}
 		}
 	}
-
-	// ========================================================================
-	// SHARE SETTINGS & PROFILES
-	// ========================================================================
 	share_settings
 	{
 			"Read"
