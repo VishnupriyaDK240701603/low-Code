@@ -1,0 +1,221 @@
+/*
+ * Author       : vishnupriya.dk.2024.cse_r691
+ * Generated on : 13-Oct-2026 21:06:35
+ * Version      : 3.0.0
+ */
+
+application "Hotel Room Booking & Front Office Management"
+{
+    date format = "dd-MMM-yyyy"
+    time zone = "Asia/Kolkata"
+    locale = "en_IN"
+
+    
+    form "Room_Booking_Form"
+    {
+        displayname = "Room Booking Form"
+        description = "Unified guest booking form incorporating 13 Basic Fields and 17 Advanced Fields."
+        
+        section "Section_A_Guest_Details"
+        {
+            displayname = "Section A: Guest Details"
+            
+            field "Guest_Name"
+            {
+                type = Name
+                displayname = "Guest Name"
+                mandatory = true
+            }
+            
+            field "ID_Proof_Number"
+            {
+                type = Single Line
+                displayname = "ID Proof Number"
+                mandatory = true
+                description = "Aadhaar / ID document reference"
+            }
+            
+            field "Number_Of_Guests"
+            {
+                type = Number
+                displayname = "Number Of Guests"
+                mandatory = true
+            }
+        }
+
+        section "Section_B_Contact_Details"
+        {
+            displayname = "Section B: Contact Details"
+            
+            field "Email_Address"
+            {
+                type = Email
+                displayname = "Email Address"
+                mandatory = true
+            }
+            
+            field "Contact_Number"
+            {
+                type = Phone
+                displayname = "Contact Number"
+                mandatory = true
+            }
+            
+            field "Permanent_Address"
+            {
+                type = Address
+                displayname = "Permanent Address"
+                mandatory = true
+            }
+        }
+
+        section "Section_C_Room_Preferences"
+        {
+            displayname = "Section C: Room & Stay Preferences"
+            
+            field "Room_Type"
+            {
+                type = Drop Down
+                displayname = "Room Type"
+                mandatory = true
+                values = {"Deluxe Double Room", "Standard Room", "Suite"}
+            }
+            
+            field "Meal_Plan"
+            {
+                type = Radio
+                displayname = "Meal Plan"
+                mandatory = true
+                values = {"Room Only", "Breakfast Included", "All Meals Included"}
+            }
+
+            field "Amenities_Required"
+            {
+                type = Multi Select
+                displayname = "Amenities Required"
+                values = {"Extra Bed", "Airport Pickup", "Late Checkout"}
+            }
+
+            field "Check_In_Date"
+            {
+                type = Date
+                displayname = "Check In Date"
+                mandatory = true
+            }
+
+            field "Agree_To_Hotel_Policies"
+            {
+                type = Checkbox
+                displayname = "Agree To Hotel Policies"
+                mandatory = true
+            }
+        }
+
+        section "Section_D_Advanced_Financials"
+        {
+            displayname = "Section D: Payment & System Values"
+            
+            field "Advance_Payment_Paid"
+            {
+                type = Currency
+                displayname = "Advance Payment Paid"
+                initial value = 0.00
+            }
+
+            field "Loyalty_Discount_Percent"
+            {
+                type = Percent
+                displayname = "Loyalty Discount Percent"
+                initial value = 0
+            }
+
+            field "Booking_ID"
+            {
+                type = Auto Number
+                displayname = "Booking ID"
+                prefix = "HTL-BKG-"
+                start value = 1
+                increment by = 1
+            }
+
+            field "Booking_Submitted_On"
+            {
+                type = Date-Time
+                displayname = "Booking Submitted On"
+                initial value = Current Time
+            }
+        }
+    }
+
+ 
+    report "All_Bookings_List"
+    {
+        displayname = "All Bookings List"
+        type = List
+        form = Room_Booking_Form
+        payload = {
+            Guest_Name,
+            Room_Type,
+            Check_In_Date,
+            Booking_ID,
+            Booking_Submitted_On
+        }
+    }
+
+    report "Bookings_Spreadsheet"
+    {
+        displayname = "Bookings Spreadsheet View"
+        type = Spreadsheet
+        form = Room_Booking_Form
+    }
+
+    report "Booking_Status_Kanban"
+    {
+        displayname = "Booking Status Kanban"
+        type = Kanban
+        form = Room_Booking_Form
+        group by = Room_Type
+    }
+
+    report "Checkin_Schedule_Calendar"
+    {
+        displayname = "Check-in Schedule Calendar"
+        type = Calendar
+        form = Room_Booking_Form
+        date field = Check_In_Date
+        title field = Guest_Name
+    }
+
+
+    workflow
+    {
+        on add
+        {
+            submit
+            {
+                action
+                {
+                    // Sends confirmation email to guest on successful submission
+                    sendmail
+                    (
+                        To: input.Email_Address
+                        From: zoho.adminuserid
+                        Subject: "Booking Confirmation - " + input.Booking_ID
+                        Message: "Dear " + input.Guest_Name.first_name + ", your booking for a " + input.Room_Type + " has been successfully confirmed."
+                    )
+                }
+            }
+        }
+    }
+
+  
+    functions
+    {
+        string generate_stay_invoice(int booking_id)
+        {
+            // Reusable Deluge function to generate stay invoice reference
+            invoice_status = "Invoice successfully generated for Booking ID: HTL-BKG-" + booking_id;
+            return invoice_status;
+        }
+    }
+}
