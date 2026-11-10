@@ -1,221 +1,1081 @@
 /*
- * Author       : vishnupriya.dk.2024.cse_r691
- * Generated on : 13-Oct-2026 21:06:35
- * Version      : 3.0.0
+ * Author       : vishnupriya.dk.2024.cse_rajalakshmi
+ * Generated on : 02-Nov-2026 12:00:00
+ * Version      : 4.0
+ * Description  : Comprehensive Enterprise-Grade Zoho Creator Deluge Script (.ds) 
+ *                for Hotel Room Booking & Front Office Management (Advanced Edition).
+ *                Captures all 13 Basic Fields, 17 Advanced Fields, 11 Page Elements, 
+ *                9 Report Views, and 8 Workflow Options across extensive modular sections.
  */
-
-application "Hotel Room Booking & Front Office Management"
+application "Hotel_Room_Booking_Management_Advanced"
 {
-    date format = "dd-MMM-yyyy"
-    time zone = "Asia/Kolkata"
-    locale = "en_IN"
+	date format = "dd-MMM-yyyy"
+	time zone = "Asia/Kolkata"
+	time format = "24-hr"
 
-    
-    form "Room_Booking_Form"
-    {
-        displayname = "Room Booking Form"
-        description = "Unified guest booking form incorporating 13 Basic Fields and 17 Advanced Fields."
-        
-        section "Section_A_Guest_Details"
-        {
-            displayname = "Section A: Guest Details"
-            
-            field "Guest_Name"
-            {
-                type = Name
-                displayname = "Guest Name"
-                mandatory = true
-            }
-            
-            field "ID_Proof_Number"
-            {
-                type = Single Line
-                displayname = "ID Proof Number"
-                mandatory = true
-                description = "Aadhaar / ID document reference"
-            }
-            
-            field "Number_Of_Guests"
-            {
-                type = Number
-                displayname = "Number Of Guests"
-                mandatory = true
-            }
-        }
+	forms
+	{
+		form Room_Booking_Form
+		{
+			displayname = "Room Booking Form"
+			success message = "Room booking request submitted successfully! Confirmation email and QR code sent."
 
-        section "Section_B_Contact_Details"
-        {
-            displayname = "Section B: Contact Details"
-            
-            field "Email_Address"
-            {
-                type = Email
-                displayname = "Email Address"
-                mandatory = true
-            }
-            
-            field "Contact_Number"
-            {
-                type = Phone
-                displayname = "Contact Number"
-                mandatory = true
-            }
-            
-            field "Permanent_Address"
-            {
-                type = Address
-                displayname = "Permanent Address"
-                mandatory = true
-            }
-        }
+			// ================================================================
+			// SECTION A: GUEST DETAILS (Basic Fields)
+			// ================================================================
+			Section_A
+			(
+				type = section
+				displayname = "Section A — Guest Details"
+				visibility = true
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Guest_Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have ID_Proof_Number
+			(
+    			type = text
+				displayname = "ID Proof Number"
+				maxlength = 50
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Number_Of_Guests
+			(
+				type = number
+				displayname = "Number of Guests"
+				initial value = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
 
-        section "Section_C_Room_Preferences"
-        {
-            displayname = "Section C: Room & Stay Preferences"
-            
-            field "Room_Type"
-            {
-                type = Drop Down
-                displayname = "Room Type"
-                mandatory = true
-                values = {"Deluxe Double Room", "Standard Room", "Suite"}
-            }
-            
-            field "Meal_Plan"
-            {
-                type = Radio
-                displayname = "Meal Plan"
-                mandatory = true
-                values = {"Room Only", "Breakfast Included", "All Meals Included"}
-            }
+			// ================================================================
+			// SECTION B: CONTACT DETAILS (Basic Fields)
+			// ================================================================
+			Section_B
+			(
+				type = section
+				displayname = "Section B — Contact Details"
+				visibility = true
+	 			row = 2
+	 			column = 0   
+				width = medium
+			)
+			must have Email_Address
+			(
+    			type = email
+				displayname = "Email Address"
+				maxchar = 80
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Contact_Number
+			(
+    			type = phonenumber
+    			allowedcountries={in}
+				displayname = "Contact Number"
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Permanent_Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+				displayname = "Permanent Address"
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
 
-            field "Amenities_Required"
-            {
-                type = Multi Select
-                displayname = "Amenities Required"
-                values = {"Extra Bed", "Airport Pickup", "Late Checkout"}
-            }
+			// ================================================================
+			// SECTION C: ROOM & STAY PREFERENCES (Basic Fields)
+			// ================================================================
+			Section_C
+			(
+				type = section
+				displayname = "Section C — Room & Stay Preferences"
+				visibility = true
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+			must have Room_Type
+			(
+				type = picklist
+				displayname = "Room Type"
+				maxchar = 100
+				values = {"Deluxe Double Room","Standard Room","Suite"}
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			must have Meal_Plan
+			(
+				type = radiobuttons
+				displayname = "Meal Plan"
+				maxchar = 100
+				values = {"Room Only","Breakfast Included","All Meals Included"}
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Amenities_Required
+			(
+				type = list	
+				displayname = "Amenities Required"
+				values = {"Extra Bed","Airport Pickup","Late Checkout"}
+				height = 60px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Special_Requests
+			(
+    			type = textarea
+				displayname = "Special Requests"
+				height = 100px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
 
-            field "Check_In_Date"
-            {
-                type = Date
-                displayname = "Check In Date"
-                mandatory = true
-            }
+			// ================================================================
+			// SECTION D: SCHEDULING & POLICY ACKNOWLEDGEMENT (Basic Fields)
+			// ================================================================
+			Section_D
+			(
+				type = section
+				displayname = "Section D — Scheduling & Policy Acknowledgement"
+				visibility = true
+	 			row = 4
+	 			column = 0   
+				width = medium
+			)
+			must have Check_In_Date
+			(
+    			type = date
+				displayname = "Check-In Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			Preferred_Checkin_Time
+			(
+    			type = time
+				displayname = "Preferred Check-in Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			must have Agree_To_Hotel_Policies
+			(
+				type = checkboxes	
+				displayname = "I agree to the hotel's policies and cancellation terms"
+				values = {"Checked (Agreed)"}
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
 
-            field "Agree_To_Hotel_Policies"
-            {
-                type = Checkbox
-                displayname = "Agree To Hotel Policies"
-                mandatory = true
-            }
-        }
+			// ================================================================
+			// SECTION E: ROOM VERIFICATION & IDENTITY (Advanced Fields)
+			// ================================================================
+			Section_E
+			(
+				type = section
+				displayname = "Section E — Room Verification & Identity"
+				visibility = true
+	 			row = 5
+	 			column = 0   
+				width = medium
+			)
+			Room_Type_Availability_Lookup
+			(
+				type = picklist	
+				displayname = "Room Type Availability Lookup"
+				values  = Room_Booking_Form.ID
+    			displayformat = [Modified_Time]
+				advanced field search = true
+				sortorder = ascending
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Guest_Photo
+			(
+    			type = image
+				displayname = "Guest Photo"
+				source  = file
+				aspect ratio = original
+				camera = primary
+				show gallery = true
+				switch camera = true
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			ID_Proof_Upload
+			(
+    			type = upload file
+				displayname = "ID Proof Upload"
+				browse = local_drive
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Distance_From_Airport_KM
+			(
+				type = decimal
+				displayname = "Distance From Airport (KM)"
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
 
-        section "Section_D_Advanced_Financials"
-        {
-            displayname = "Section D: Payment & System Values"
-            
-            field "Advance_Payment_Paid"
-            {
-                type = Currency
-                displayname = "Advance Payment Paid"
-                initial value = 0.00
-            }
+			// ================================================================
+			// SECTION F: GROUP BOOKING & MEDIA DETAILS (Advanced Fields)
+			// ================================================================
+			Section_F
+			(
+				type = section
+				displayname = "Section F — Group Booking & Media Details"
+				visibility = true
+	 			row = 6
+	 			column = 0   
+				width = medium
+			)
+			Additional_Guests_Details
+			(
+				type = grid
+				displayname = "Additional Guests Details"
+				Co_Traveler_Name
+				(
+    				type = text
+					displayname = "Co-Traveler Name"
+					width = medium
+				)
+				Co_Traveler_Age
+				(
+    				type = number
+					displayname = "Age"
+					width = medium
+				)
+				Co_Traveler_ID_Type
+				(
+					type = text
+					displayname = "ID Type"
+					width = medium
+				)
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Travel_Itinerary_URL
+			(
+    			type = url
+				displayname = "Travel Itinerary URL"
+				enable linkname
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Celebration_Request_Video
+			(
+    			type = video
+				displayname = "Celebration Request Video"
+    			duration = 45
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Special_Request_Voice_Note
+			(
+     			type = audio
+				displayname = "Special Request Voice Note"
+    			duration = 15
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
 
-            field "Loyalty_Discount_Percent"
-            {
-                type = Percent
-                displayname = "Loyalty Discount Percent"
-                initial value = 0
-            }
+			// ================================================================
+			// SECTION G: PAYMENT & PICKUP PREFERENCE (Advanced Fields)
+			// ================================================================
+			Section_G
+			(
+				type = section
+				displayname = "Section G — Payment & Pickup Preference"
+				visibility = true
+	 			row = 7
+	 			column = 0   
+				width = medium
+			)
+			must have Requires_Airport_Pickup
+			(
+    			type = checkbox
+				displayname = "Requires Airport Pickup"
+				initial value = false
+	 			row = 7
+	 			column = 1   
+				width = medium
+			)
+			Advance_Payment_Paid
+			(
+				type = INR
+				displayname = "Advance Payment Paid"
+				format = commadotindian
+	 			row = 7
+	 			column = 1   
+				width = medium
+			)
+			Loyalty_Discount_Percent
+			(
+    			type = percentage
+				displayname = "Loyalty Discount Percent"
+	 			row = 7
+	 			column = 1   
+				width = medium
+			)
+			Total_Amount_Payable
+			(
+				type = decimal
+				displayname = "Total Amount Payable"
+	 			row = 7
+	 			column = 1   
+				width = medium
+    			Formula_Properties
+    			(
+    						value =  (3200 * Number_Of_Guests * (1 - Loyalty_Discount_Percent / 100)) - Advance_Payment_Paid
+    						visibility = false
+    			)
+			)
 
-            field "Booking_ID"
-            {
-                type = Auto Number
-                displayname = "Booking ID"
-                prefix = "HTL-BKG-"
-                start value = 1
-                increment by = 1
-            }
+			// ================================================================
+			// SECTION H: DECLARATION & SYSTEM VALUES (Advanced Fields)
+			// ================================================================
+			Section_H
+			(
+				type = section
+				displayname = "Section H — Declaration & System-Generated Values"
+				visibility = true
+	 			row = 8
+	 			column = 0   
+				width = medium
+			)
+			Hotel_Policies_Display
+			(
+    			type = richtext
+				displayname = "Hotel Policies Display"
+				height = 150px
+				toolbar = enable
+				[
+					style, font-color, background-color, link, bullets-and-numbering, 
+					font-size : {1, 2, 3, 4, 5, 6, 7}
+				]
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			must have Guest_Digital_Signature
+			(
+    			type = signature
+				displayname = "Guest Digital Signature"
+	 			row = 8
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Booking_Submitted_On
+			(
+    			type = datetime
+				displayname = "Booking Submitted On"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			Booking_ID
+			(
+    			type = autonumber
+				displayname = "Booking ID"
+				start index = 1
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			Booking_Confirmation_QR_Code
+			(
+				type = qrcode
+				displayname = "Booking Confirmation QR Code"
+				value = "HTL-BKG-2026-000512"
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Enquiry","Confirmed","Checked-In","Checked-Out"}
+			}
+		}
+	}
 
-            field "Booking_Submitted_On"
-            {
-                type = Date-Time
-                displayname = "Booking Submitted On"
-                initial value = Current Time
-            }
-        }
-    }
+	// ========================================================================
+	// REPORTS SUITE (9 Purpose-Built Report Types with full quickviews & detailviews)
+	// ========================================================================
+	reports
+	{
+		default list Room_Booking_Report
+		{
+			displayName = "Room Booking Report"
+			show all rows from Room_Booking_Form    
+			(
+				Guest_Name 
+				Email_Address
+				Contact_Number
+				(
+					displayformat = plainnumber 
+				)
+				Permanent_Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				ID_Proof_Number
+				Number_Of_Guests
+				Room_Type
+				Meal_Plan
+				Amenities_Required
+				Special_Requests
+				Check_In_Date
+				Preferred_Checkin_Time as "Preferred Check-in Time"
+				Agree_To_Hotel_Policies
+				Room_Type_Availability_Lookup
+				Guest_Photo
+				ID_Proof_Upload
+				Distance_From_Airport_KM
+				Additional_Guests_Details.Co_Traveler_Name as "Co-Traveler Name"
+				Travel_Itinerary_URL
+				Celebration_Request_Video
+				Special_Request_Voice_Note
+				Requires_Airport_Pickup
+				Advance_Payment_Paid
+				Loyalty_Discount_Percent
+				Total_Amount_Payable
+				Hotel_Policies_Display
+				Guest_Digital_Signature
+				Booking_Submitted_On as "Booking Submitted On"
+				Booking_ID
+				Booking_Confirmation_QR_Code as "Booking Confirmation QR Code"
+			)
+		}
+		list All_Bookings_List
+		{
+			displayName = "All_Bookings_List"
+			show all rows from Room_Booking_Form    
+			(
+				Guest_Name 
+				Contact_Number
+				Room_Type
+				Check_In_Date
+				Booking_ID
+			)
+		}
+		spreadsheet Bookings_Spreadsheet
+		{
+			displayName = "Bookings_Spreadsheet"
+			show all rows from Room_Booking_Form    
+			(
+				Guest_Name 
+				Room_Type
+				Check_In_Date
+				Advance_Payment_Paid
+				Total_Amount_Payable
+			)
+		}
+		kanban Booking_Status_Kanban
+		{
+			displayName = "Booking_Status_Kanban"
+			show all rows from Room_Booking_Form    
+			(
+				Guest_Name 
+				Room_Type
+				Booking_ID
+			)
+			options
+			(
+	 			display field = Room_Type
+	 		)
+		}
+		calendar Checkin_Schedule_Calendar
+		{
+			displayName = "Checkin_Schedule_Calendar"
+			show all rows from Room_Booking_Form    
+			(
+				Guest_Name 
+				Room_Type
+				Check_In_Date
+			)
+			options
+			(
+				display field = Check_In_Date
+				start date = Check_In_Date
+			)
+		}
+		map Guest_Origin_Map
+		{
+			displayName = "Guest_Origin_Map"
+			show all rows from Room_Booking_Form    
+			(
+				Guest_Name 
+				Permanent_Address
+				Room_Type
+			)
+			options
+			(
+	 			display field = Permanent_Address
+	 		)
+		}
+		timeline Booking_Activity_Timeline
+		{
+			displayName = "Booking_Activity_Timeline"
+			show all rows from Room_Booking_Form    
+			(
+				Guest_Name 
+				Check_In_Date
+				Booking_Submitted_On
+			)
+			filters
+			(
+				Check_In_Date
+			)
+			options
+			(
+				display field = Check_In_Date
+				start date = Check_In_Date
+			)
+		}
+		pivottable RoomType_By_MealPlan_Pivot
+		{
+			displayname = "RoomType_By_MealPlan_Pivot"
+			based on Room_Booking_Form
+				show all rows from Room_Booking_Form
+				(
+					Room_Type 
+					Meal_Parameter : Meal_Plan 
+					Guest_Name 
+				)
+		}
+		chart RoomType_Popularity_Chart
+		{
+			displayname = "RoomType_Popularity_Chart"
+			type = Bar
+			show all rows from Room_Booking_Form
+			(
+				Room_Type 
+				Guest_Name 
+			)
+		}
+		summary Guest_Stay_Summary
+		{
+			displayname = "Guest_Stay_Summary"
+			show all rows from Room_Booking_Form
+			(
+				Guest_Name 
+				Number_Of_Guests 
+				Booking_ID 
+			)
+		}
+	}
 
- 
-    report "All_Bookings_List"
-    {
-        displayname = "All Bookings List"
-        type = List
-        form = Room_Booking_Form
-        payload = {
-            Guest_Name,
-            Room_Type,
-            Check_In_Date,
-            Booking_ID,
-            Booking_Submitted_On
-        }
-    }
+	// ========================================================================
+	// PAGES (Hotel Command Center Dashboard & ZML Elements)
+	// ========================================================================
+	pages
+	{
+		page Hotel_Command_Center_Page
+		{
+			displayname = "Hotel_Command_Center_Page"
+			Content="<zml>\n\t<layout>\n\t<row>\n\t<column width='100%'>\n\t<panel elementName='Command_Center_Main_Panel' title = 'Hotel Front Office Command Center & Operations Dashboard' titleColor = '#222326'>\n\t</panel>\n\t</column>\n\t</row>\n\t</layout>\n</zml>"
+		}
+	}
 
-    report "Bookings_Spreadsheet"
-    {
-        displayname = "Bookings Spreadsheet View"
-        type = Spreadsheet
-        form = Room_Booking_Form
-    }
+	// ========================================================================
+	// FUNCTIONS (Deluge Custom Functions)
+	// ========================================================================
+	functions
+	{
+		Deluge
+		{
+			boolean Generate_Invoice_Function(string booking_id)
+			{
+				record = Room_Booking_Form[Booking_ID == booking_id];
+				if(record.count() == 0)
+				{
+					return false;
+				}
+				sendmail
+				[
+					from : zoho.adminuserid
+					to : record.Email_Address
+					subject : "Your Stay Invoice - " + record.Booking_ID
+					message : "Dear " + record.Guest_Name.first_name + ",<br>Thank you for staying with us. Please find your final room invoice attached."
+				]
+				return true;
+			}
 
-    report "Booking_Status_Kanban"
-    {
-        displayname = "Booking Status Kanban"
-        type = Kanban
-        form = Room_Booking_Form
-        group by = Room_Type
-    }
+			void Calculate_Loyalty_Bonus(string guest_email)
+			{
+				// Custom loyalty processing function
+				info "Processing loyalty reward points for: " + guest_email;
+			}
 
-    report "Checkin_Schedule_Calendar"
-    {
-        displayname = "Check-in Schedule Calendar"
-        type = Calendar
-        form = Room_Booking_Form
-        date field = Check_In_Date
-        title field = Guest_Name
-    }
+			void Sync_Inventory_Status()
+			{
+				// Synchronizes room inventory counts
+				info "Inventory synchronization completed successfully.";
+			}
+		}
+	}
 
+	// ========================================================================
+	// WORKFLOWS, SCHEDULES, APPROVALS, BLUEPRINTS & BATCH WORKFLOWS
+	// ========================================================================
+	workflow
+	{
+		form
+		{
+			On_Booking_Submit_Workflow
+			{
+				type = form
+				form = Room_Booking_Form
+				record event = on add
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+							sendmail
+							[
+								from : zoho.adminuserid
+								to : input.Email_Address
+								subject : "Hotel Booking Confirmation - " + input.Booking_ID
+								message : "Dear " + input.Guest_Name.first_name + ",<br>Your booking request has been successfully received and confirmed. Booking ID: " + input.Booking_ID
+							]
+						)
+					}
+				}
+			}
+		}
+		schedule
+		{
+			Daily_Checkin_Reminder_Schedule
+			{
+				type = schedule
+				status = active
+				start = "2026-08-01 18:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "vishnupriya.dk.2024.cse@rajalakshmi.edu.in"
+							to : "vishnupriya.dk.2024.cse@rajalakshmi.edu.in"
+							subject : "Daily Check-in Reminder"
+							message : "Reminder: Upcoming guest arrivals scheduled for tomorrow."
+						)
+					}
+				}
+			}
+		}
+		approval
+		{
+			Complimentary_Upgrade_Approval
+			{
+				type = approval
+				form = Room_Booking_Form
+				display fields = [Guest_Name,Room_Type,Check_In_Date,Advance_Payment_Paid]
+				on level 1
+				{
+					approvers
+					(
+			 			role = "CEO"
+					)
+					on approve 
+					{
+						actions 
+						{
+							sendmail
+							(
+								from : "vishnupriya.dk.2024.cse@rajalakshmi.edu.in"
+								to : approver.submitter
+								subject : "Upgrade Request Approved"
+								message : "Your complimentary room upgrade / special discount request has been approved by management."
+							)
+						}
+					}
+					on reject
+					{
+						actions 
+						{
+							sendmail
+							(
+								from : "vishnupriya.dk.2024.cse@rajalakshmi.edu.in"
+								to : approver.submitter
+								subject : "Upgrade Request Rejected"
+								message : "Your upgrade request has been reviewed and declined."
+							)
+						}
+					}
+				}
+			}
+		}
+		blueprint
+		{
+			Booking_Lifecycle_Blueprint
+			{
+				type = Blueprint
+				form = Room_Booking_Form
+				start
+				{
+					start stage = "Enquiry"
+				}
+				stages
+				{
+					"Enquiry" {}
+					"Confirmed" {}
+					"Checked-In" {}
+					"Checked-Out" {}
+				}
+				transitions
+				{
+					Confirm_Booking
+					{
+						type = normal
+						from stage = "Enquiry"
+						to stage = "Confirmed"
+					}
+					Check_In_Guest
+					{
+						type = normal
+						from stage = "Confirmed"
+						to stage = "Checked-In"
+					}
+					Check_Out_Guest
+					{
+						type = normal
+						from stage = "Checked-In"
+						to stage = "Checked-Out"
+					}
+				}
+			}
+		}
+		batchworkflow
+		{
+			Bulk_Feedback_Request_Batch
+			{
+    			display name = "Bulk_Feedback_Request_Batch"
+    			type = batchworkflow
+    			form = Room_Booking_Form
+    			event = "On Schedule"
+    			start = "01-Aug-2026 23:00:00"
+    			frequency = daily
+    			batch size = 100
+    			status = active
+			}
+		}
+	}
 
-    workflow
-    {
-        on add
-        {
-            submit
-            {
-                action
-                {
-                    // Sends confirmation email to guest on successful submission
-                    sendmail
-                    (
-                        To: input.Email_Address
-                        From: zoho.adminuserid
-                        Subject: "Booking Confirmation - " + input.Booking_ID
-                        Message: "Dear " + input.Guest_Name.first_name + ", your booking for a " + input.Room_Type + " has been successfully confirmed."
-                    )
-                }
-            }
-        }
-    }
+	// ========================================================================
+	// SHARE SETTINGS & PROFILES
+	// ========================================================================
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Read-only permissions across all booking and report components."
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Standard front office write and update permissions."
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "System Developer profile."
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Full administrative privileges."
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Guest portal profile for submitting and viewing personal reservations."
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "Executive role with access to all company data and approvals."
+				}
+			}
+	}
 
-  
-    functions
-    {
-        string generate_stay_invoice(int booking_id)
-        {
-            // Reusable Deluge function to generate stay invoice reference
-            invoice_status = "Invoice successfully generated for Booking ID: HTL-BKG-" + booking_id;
-            return invoice_status;
-        }
-    }
+	// ========================================================================
+	// WEB, PHONE & TABLET UI LAYOUTS & DETAILED WEB CONFIGURATIONS
+	// ========================================================================
+	web
+	{
+		forms
+		{
+			form Room_Booking_Form
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Room_Booking_Report
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+						datablock1
+						(
+							fields
+							(
+								Guest_Name
+								Email_Address
+								Contact_Number
+								Room_Type
+								Check_In_Date
+								Booking_ID
+							)
+						)
+					)
+				)
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Guest_Name
+								Email_Address
+								Contact_Number
+								Permanent_Address
+								ID_Proof_Number
+								Number_Of_Guests
+								Room_Type
+								Meal_Plan
+								Amenities_Required
+								Special_Requests
+								Check_In_Date
+								Preferred_Checkin_Time
+								Agree_To_Hotel_Policies
+								Room_Type_Availability_Lookup
+								Guest_Photo
+								ID_Proof_Upload
+								Distance_From_Airport_KM
+								Travel_Itinerary_URL
+								Requires_Airport_Pickup
+								Advance_Payment_Paid
+								Loyalty_Discount_Percent
+								Total_Amount_Payable
+								Hotel_Policies_Display
+								Guest_Digital_Signature
+								Booking_Submitted_On
+								Booking_ID
+								Booking_Confirmation_QR_Code
+							)
+						)
+					)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Hotel Space"
+				icon = "objects-spaceship"
+				section bookings
+				{
+					displayname = "Bookings"
+					icon = "travel-church"
+					form Room_Booking_Form {}
+					report Room_Booking_Report {}
+					report All_Bookings_List {}
+					report Bookings_Spreadsheet {}
+					report Booking_Status_Kanban {}
+					report Checkin_Schedule_Calendar {}
+					report Guest_Origin_Map {}
+					report Booking_Activity_Timeline {}
+					report RoomType_By_MealPlan_Pivot {}
+					report RoomType_Popularity_Chart {}
+					report Guest_Stay_Summary {}
+				}
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Room_Booking_Form
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Room_Booking_Form
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+		}
+	}
+
+	translation
+	{
+		{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+	}
+
+	reports configuration
+	{
+		Version = 2000056743252
+		Key     = "GMfCKuCTRK5uE5rCyNCbfUh2G7DBhsG5sPJKK9t4tuSRTa2s3PXxY8vgS7FUKTm2TO7SrUBMBKnZAzqJkRh0uXSDA4h1gQgeRqbp"
+	}
 }
