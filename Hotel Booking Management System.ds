@@ -2,10 +2,6 @@
  * Author       : vishnupriya.dk.2024.cse_rajalakshmi
  * Generated on : 02-Nov-2026 12:00:00
  * Version      : 4.0
- * Description  : Comprehensive Enterprise-Grade Zoho Creator Deluge Script (.ds) 
- *                for Hotel Room Booking & Front Office Management (Advanced Edition).
- *                Captures all 13 Basic Fields, 17 Advanced Fields, 11 Page Elements, 
- *                9 Report Views, and 8 Workflow Options across extensive modular sections.
  */
 application "Hotel_Room_Booking_Management_Advanced"
 {
